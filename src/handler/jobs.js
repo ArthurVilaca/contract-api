@@ -10,7 +10,8 @@ const router = express.Router();
 router.get('/unpaid', async (req, res) => {
     const {
         Job,
-        Contract
+        Contract,
+        Profile
     } = req.app.get('models');
     const {
         id
@@ -26,18 +27,21 @@ router.get('/unpaid', async (req, res) => {
             where: {
                 [Op.or]: [{
                         ContractorId: id,
-                        status: {
-                            [Op.ne]: 'terminated'
-                        }
+                        status: 'in_progress'
                     },
                     {
                         ClientId: id,
-                        status: {
-                            [Op.ne]: 'terminated'
-                        }
+                        status: 'in_progress'
                     }
                 ],
-            }
+            },
+            include: [{
+                model: Profile,
+                as: 'Client'
+            }, {
+                model: Profile,
+                as: 'Contractor'
+            }]
         }]
     });
     res.json(jobs);

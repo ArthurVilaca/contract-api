@@ -1,5 +1,4 @@
 function profileFormatter(profile, paid) {
-    console.log(paid)
     const {
         id,
         firstName,

@@ -1,6 +1,6 @@
 const request = require('supertest');
 
-const app = require('../src/app');
+const app = require('../../src/app');
 
 // created an example of a test with supertest
 
